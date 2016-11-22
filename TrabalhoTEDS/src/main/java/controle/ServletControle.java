@@ -15,6 +15,7 @@ import modelo.Endereco;
 import modelo.Pedido;
 import modelo.Prato;
 import modelo.Produto;
+import modelo.Venda;
 import modelo.dao.BebidaDAO;
 import modelo.dao.ClienteDAO;
 import modelo.dao.DAOFactory;
@@ -176,7 +177,42 @@ public class ServletControle extends HttpServlet {
                     DAOFactory.mostrarSQLException(ex);
                 }
             }
-        }else if (caminho.equals("/carrinho/adicionar")) {
+        }else if (caminho.equals("/carrinho/bebida/adicionar")) {
+            CarrinhoCompras carrinho = (CarrinhoCompras) request.getSession().getAttribute("carrinho");
+            if (carrinho == null) {
+                carrinho = new CarrinhoCompras();
+            }
+
+            int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+            long codigo = Long.parseLong(request.getParameter("codigo"));
+            DAOFactory factory = new DAOFactory();
+            try {
+                factory.abrirConexao();
+                
+                ProdutoDAO dao = factory.criarProdutoDAO();
+                Produto produto = dao.buscar_bebida(codigo);
+                
+                Venda venda = new Venda();
+                carrinho = venda.addItem(quantidade, produto);
+
+                request.getSession().setAttribute("carrinho", carrinho);
+
+                RequestDispatcher rd = null;
+                rd = request.getRequestDispatcher("/produtos/comprar");
+                rd.forward(request, response);
+
+            } catch (SQLException ex) {
+                System.out.println("Erro no acesso ao banco de dados.");
+                DAOFactory.mostrarSQLException(ex);
+            } finally {
+                try {
+                    factory.fecharConexao();
+                } catch (SQLException ex) {
+                    System.out.println("Erro ao fechar a conexão com o BD.");
+                    DAOFactory.mostrarSQLException(ex);
+                }
+            }
+        }else if (caminho.equals("/carrinho/prato/adicionar")) {
             CarrinhoCompras carrinho = (CarrinhoCompras) request.getSession().getAttribute("carrinho");
             if (carrinho == null) {
                 carrinho = new CarrinhoCompras();
@@ -188,7 +224,7 @@ public class ServletControle extends HttpServlet {
             try {
                 factory.abrirConexao();
                 ProdutoDAO dao = factory.criarProdutoDAO();
-                Produto produto = dao.buscar(codigo);
+                Produto produto = dao.buscar_prato(codigo);
                 carrinho.adicionarItem(quantidade, produto);
                 request.getSession().setAttribute("carrinho", carrinho);
 
@@ -210,9 +246,10 @@ public class ServletControle extends HttpServlet {
         }else if (caminho.equals("/vendas/finalizar")) {
             CarrinhoCompras carrinho = (CarrinhoCompras) request.getSession().getAttribute("carrinho");
 
+            Venda venda = new Venda();
+            
             Pedido pedido = new Pedido();
-            pedido.setDataCompra("30/06/2016");
-            pedido.setItens(carrinho.getItens());
+            pedido = venda.Finalizar(carrinho);
 
             DAOFactory factory = new DAOFactory();
             try {
@@ -224,6 +261,30 @@ public class ServletControle extends HttpServlet {
 
                 RequestDispatcher rd = null;
                 rd = request.getRequestDispatcher("/index.html");
+                rd.forward(request, response);
+
+            } catch (SQLException ex) {
+                System.out.println("Erro no acesso ao banco de dados.");
+                DAOFactory.mostrarSQLException(ex);
+            } finally {
+                try {
+                    factory.fecharConexao();
+                } catch (SQLException ex) {
+                    System.out.println("Erro ao fechar a conexão com o BD.");
+                    DAOFactory.mostrarSQLException(ex);
+                }
+            }
+        } else if (caminho.equals("/vendas/listar")) {
+
+            DAOFactory factory = new DAOFactory();
+            try {
+                factory.abrirConexao();
+                PedidoDAO dao = factory.criarPedidoDAO();
+                List<Pedido> pedidos = dao.buscarTodos();
+                request.getSession().setAttribute("pedidos", pedidos);
+
+                RequestDispatcher rd = null;
+                rd = request.getRequestDispatcher("/listarVendas.jsp");
                 rd.forward(request, response);
 
             } catch (SQLException ex) {

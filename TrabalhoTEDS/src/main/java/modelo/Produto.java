@@ -8,6 +8,7 @@ public class Produto {
     private int bebida_codigo;
     private double preco;
 
+
     public long getCodigo() {
         return codigo;
     }

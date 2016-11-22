@@ -65,7 +65,7 @@ public class DAOFactory {
 
     public void abrirConexao() throws SQLException {
         if (conexao == null) {
-            conexao = ConexaoFactory.getConexao();
+            conexao = ConexaoFactory.getConexaoMySQL();
         } else {
             throw new IllegalStateException("A conexão já está aberta.");
         }

@@ -17,15 +17,53 @@ public class ProdutoDAO {
         this.conexao = conexao;
     }
 
-    public Produto buscar(long codigo) throws SQLException {
+    public Produto buscar_bebida(long codigo) throws SQLException {
         Produto produto = null;
-        String selecao = "SELECT * FROM produto WHERE prato_codigo or bebida_codigo = ?";
+        String selecao = "SELECT * FROM produto WHERE bebida_codigo = ?";
         try (PreparedStatement pstmt = conexao.prepareStatement(selecao)) {
             pstmt.setLong(1, codigo);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     produto = new Produto();
-                    produto.setCodigo(rs.getLong(1));                   
+                    produto.setCodigo(rs.getLong(1));
+                    produto.setProduto_Bebida_codigo(rs.getInt(2));
+                    produto.setProduto_Prato_codigo(rs.getInt(3));
+                    produto.setPreco(rs.getDouble(4));
+                    produto.setNome(rs.getString(5));
+                }
+            }
+        }
+        return produto;
+    }
+
+    public Produto buscar_prato(long codigo) throws SQLException {
+        Produto produto = null;
+        String selecao = "SELECT * FROM produto WHERE prato_codigo = ?";
+        try (PreparedStatement pstmt = conexao.prepareStatement(selecao)) {
+            pstmt.setLong(1, codigo);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    produto = new Produto();
+                    produto.setCodigo(rs.getLong(1));
+                    produto.setProduto_Bebida_codigo(rs.getInt(2));
+                    produto.setProduto_Prato_codigo(rs.getInt(3));
+                    produto.setPreco(rs.getDouble(4));
+                    produto.setNome(rs.getString(5));
+                }
+            }
+        }
+        return produto;
+    }
+
+    public Produto buscar(long codigo) throws SQLException {
+        Produto produto = null;
+        String selecao = "SELECT * FROM produto WHERE codigo = ?";
+        try (PreparedStatement pstmt = conexao.prepareStatement(selecao)) {
+            pstmt.setLong(1, codigo);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    produto = new Produto();
+                    produto.setCodigo(rs.getLong(1));
                     produto.setProduto_Bebida_codigo(rs.getInt(2));
                     produto.setProduto_Prato_codigo(rs.getInt(3));
                     produto.setPreco(rs.getDouble(4));

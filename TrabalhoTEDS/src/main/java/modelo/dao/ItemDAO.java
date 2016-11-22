@@ -54,10 +54,9 @@ public class ItemDAO {
                     item.setCodigo(rs.getLong(1));
                     produto = dao.buscar(rs.getLong(2));
                     item.setProduto(produto);
-                    item.setQuantidade(rs.getInt(4));                  
+                    item.setQuantidade(rs.getInt(4));
                     itens.add(item);
                 }
-                pedido.setItens(itens);
             }
         }
     }

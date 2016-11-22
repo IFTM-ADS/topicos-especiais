@@ -8,21 +8,21 @@
     </head>
     <body>  
         <h2>Bebidas</h2>
-        <form action="/TrabalhoTEDS/carrinho/adicionar" method="POST">
+        <form action="/TrabalhoTEDS/carrinho/bebida/adicionar" method="POST">
             Quantidade: <input type="text" name="quantidade" value="" />
             <select name="codigo">  
                 <c:forEach var="bebida" items="${bebidas}">
-                    <option value="${bebida.codigo}">${bebida.nome}</option>
+                    <option value="${bebida.codigo_bebida}">${bebida.nome}</option>
                 </c:forEach>
             </select>
             <input type="submit" value="Adicionar no Carrinho" />
         </form>
         <h2>Pratos</h2>
-        <form action="/TrabalhoTEDS/carrinho/adicionar" method="POST">
+        <form action="/TrabalhoTEDS/carrinho/prato/adicionar" method="POST">
             Quantidade: <input type="text" name="quantidade" value="" />
             <select name="codigo">  
                 <c:forEach var="prato" items="${pratos}">
-                    <option value="${prato.codigo}">${prato.nome}</option>
+                    <option value="${prato.codigo_prato}">${prato.nome}</option>
                 </c:forEach>
             </select>
             <input type="submit" value="Adicionar no Carrinho" />
