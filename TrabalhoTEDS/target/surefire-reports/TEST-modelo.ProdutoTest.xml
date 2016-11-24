@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.138" errors="0" skipped="0" tests="6" name="modelo.ClienteTest">
+<testsuite failures="0" time="0" errors="0" skipped="0" tests="4" name="modelo.ProdutoTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.7.0_79\jre\bin"/>
@@ -61,10 +61,8 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase time="0.02" classname="modelo.ClienteTest" name="testGetSetData"/>
-  <testcase time="0" classname="modelo.ClienteTest" name="testGetSetNome"/>
-  <testcase time="0" classname="modelo.ClienteTest" name="testGetSetEmail"/>
-  <testcase time="0" classname="modelo.ClienteTest" name="testGetSetSenha"/>
-  <testcase time="0" classname="modelo.ClienteTest" name="testGetSetIdEndereco"/>
-  <testcase time="0" classname="modelo.ClienteTest" name="testGetSetCpf"/>
+  <testcase time="0" classname="modelo.ProdutoTest" name="testGetSetNome"/>
+  <testcase time="0" classname="modelo.ProdutoTest" name="testGetSetProduto_Bebida_codigo"/>
+  <testcase time="0" classname="modelo.ProdutoTest" name="testGetSetProduto_Prato_codigo"/>
+  <testcase time="0" classname="modelo.ProdutoTest" name="testGetSetCodigo"/>
 </testsuite>
