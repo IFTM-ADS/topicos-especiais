@@ -24,7 +24,7 @@ public class PedidoTest {
     }
 
     @Test
-    public void testAddQuantidade() {
+    public void testAdicionarItem() {
         when(produto.getPreco()).thenReturn(50.0);
 
         pedido.adicionarItem(2, produto);

@@ -61,7 +61,7 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase time="0.016" classname="modelo.ClienteTest" name="testGetSetData"/>
+  <testcase time="0" classname="modelo.ClienteTest" name="testGetSetData"/>
   <testcase time="0" classname="modelo.ClienteTest" name="testGetSetNome"/>
   <testcase time="0" classname="modelo.ClienteTest" name="testGetSetEmail"/>
   <testcase time="0" classname="modelo.ClienteTest" name="testGetSetSenha"/>
