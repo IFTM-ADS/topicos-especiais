@@ -6,28 +6,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.mockito.Mock;
 
 public class VendaTest {
 
     public VendaTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
 
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
-/*
+    /*
     @Test
     public void testGetCarrinho() {
         System.out.println("getCarrinho");
@@ -83,5 +70,4 @@ public class VendaTest {
         Pedido result = instance.Finalizar(carrinho);
         assertEquals(expResult, result);
     }*/
-
 }
