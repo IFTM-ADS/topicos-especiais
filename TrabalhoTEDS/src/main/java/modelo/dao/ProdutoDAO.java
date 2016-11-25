@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import modelo.Bebida;
+import modelo.Prato;
 import modelo.Produto;
 
 public class ProdutoDAO {
@@ -122,6 +124,62 @@ public class ProdutoDAO {
                 System.out.println("\nInserção bem sucedida.");
             } else {
                 System.out.println("A inserção não foi feita corretamente.");
+            }
+        }
+    }
+
+    public void atualizar_bebida(Bebida bebida) throws SQLException {
+        String alteracao = "UPDATE produto SET preco = ?, nome = ? WHERE bebida_codigo = ?;";
+        try (PreparedStatement pstmt = conexao.prepareStatement(alteracao)) {
+            pstmt.setDouble(1, bebida.getPreco());
+            pstmt.setString(2, bebida.getNome());
+            pstmt.setInt(3, bebida.getCodigo_bebida());
+            int alteracoes = pstmt.executeUpdate();
+            if (alteracoes == 1) {
+                System.out.println("\nAlteracao bem sucedida.");
+            } else {
+                System.out.println("A alteracao não foi feita corretamente.");
+            }
+        }
+    }
+
+    public void atualizar_prato(Prato prato) throws SQLException {
+        String alteracao = "UPDATE produto SET preco = ?, nome = ? WHERE prato_codigo = ?;";
+        try (PreparedStatement pstmt = conexao.prepareStatement(alteracao)) {           
+            pstmt.setDouble(1, prato.getPreco());
+            pstmt.setString(2, prato.getNome());
+            pstmt.setInt(3, prato.getCodigo_prato());
+            int alteracoes = pstmt.executeUpdate();
+            if (alteracoes == 1) {
+                System.out.println("\nAlteracao bem sucedida.");
+            } else {
+                System.out.println("A alteracao não foi feita corretamente.");
+            }
+        }
+    }
+
+    public void remover_prato(Prato prato) throws SQLException {
+        String remocao = "DELETE FROM produto WHERE prato_codigo = ?";
+        try (PreparedStatement pstmt = conexao.prepareStatement(remocao)) {
+            pstmt.setInt(1, prato.getCodigo_prato());
+            int remocoes = pstmt.executeUpdate();
+            if (remocoes == 1) {
+                System.out.println("Remoção efetuada com sucesso.");
+            } else {
+                System.out.println("Não foi possível efetuar a remoção.");
+            }
+        }
+    }
+
+    public void remover_bebida(Bebida bebida) throws SQLException {
+        String remocao = "DELETE FROM produto WHERE bebida_codigo = ?";
+        try (PreparedStatement pstmt = conexao.prepareStatement(remocao)) {
+            pstmt.setInt(1, bebida.getCodigo_bebida());
+            int remocoes = pstmt.executeUpdate();
+            if (remocoes == 1) {
+                System.out.println("Remoção efetuada com sucesso.");
+            } else {
+                System.out.println("Não foi possível efetuar a remoção.");
             }
         }
     }

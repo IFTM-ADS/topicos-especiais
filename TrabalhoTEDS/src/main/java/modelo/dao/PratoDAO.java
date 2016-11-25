@@ -9,9 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import modelo.Prato;
 
-
 public class PratoDAO {
-    
+
     private final Connection conexao;
 
     public PratoDAO(Connection conexao) {
@@ -27,9 +26,9 @@ public class PratoDAO {
                 if (rs.next()) {
                     prato = new Prato();
                     prato.setCodigo_prato(rs.getInt(1));
-                    prato.setNome(rs.getString(2));
-                    prato.setDescricao(rs.getString(3));
-                    prato.setPreco(rs.getDouble(4));
+                    prato.setNome(rs.getString(2));                   
+                    prato.setPreco(rs.getDouble(3));
+                    prato.setDescricao(rs.getString(4));
                 }
             }
         }
@@ -54,8 +53,8 @@ public class PratoDAO {
         }
         return pratos;
     }
-    
-        public void gravar(Prato prato) throws SQLException {
+
+    public void gravar(Prato prato) throws SQLException {
 
         String insercao = "INSERT INTO prato (codigo, nome, descricao, preco) VALUES (?, ?, ?, ?);";
         try (PreparedStatement pstmt = conexao.prepareStatement(insercao)) {
@@ -72,4 +71,32 @@ public class PratoDAO {
         }
     }
 
+    public void remover(Prato prato) throws SQLException {
+        String remocao = "DELETE FROM prato WHERE codigo = ?";
+        try (PreparedStatement pstmt = conexao.prepareStatement(remocao)) {
+            pstmt.setInt(1, prato.getCodigo_prato());
+            int remocoes = pstmt.executeUpdate();
+            if (remocoes == 1) {
+                System.out.println("Remoção efetuada com sucesso.");
+            } else {
+                System.out.println("Não foi possível efetuar a remoção.");
+            }
+        }
+    }
+
+    public void atualizar(Prato prato) throws SQLException {
+        String alteracao = "UPDATE prato SET nome = ?, descricao = ?, preco = ? WHERE codigo = ?;";
+        try (PreparedStatement pstmt = conexao.prepareStatement(alteracao)) {         
+            pstmt.setString(1, prato.getNome());        
+            pstmt.setString(2, prato.getDescricao());
+            pstmt.setDouble(3, prato.getPreco());
+            pstmt.setInt(4, prato.getCodigo_prato());
+            int alteracoes = pstmt.executeUpdate();
+            if (alteracoes == 1) {
+                System.out.println("\nAlteracao bem sucedida.");
+            } else {
+                System.out.println("A alteracao não foi feita corretamente.");
+            }
+        }
+    }
 }

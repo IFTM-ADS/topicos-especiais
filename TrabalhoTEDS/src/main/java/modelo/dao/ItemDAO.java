@@ -61,4 +61,17 @@ public class ItemDAO {
         }
     }
 
+    public void remover(Produto produto) throws SQLException {
+        String remocao = "DELETE FROM item WHERE produto_codigo = ?";
+        try (PreparedStatement pstmt = conexao.prepareStatement(remocao)) {
+            pstmt.setLong(1, produto.getCodigo());
+            int remocoes = pstmt.executeUpdate();
+            if (remocoes == 1) {
+                System.out.println("Remoção efetuada com sucesso.");
+            } else {
+                System.out.println("Não foi possível efetuar a remoção.");
+            }
+        }
+    }
+
 }

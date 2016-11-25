@@ -1,6 +1,7 @@
 modelo\Pedido.class
 modelo\CarrinhoCompras.class
 modelo\Prato.class
+modelo\Venda.class
 modelo\Item.class
 modelo\dao\EnderecoDAO.class
 modelo\dao\DAOFactory.class
