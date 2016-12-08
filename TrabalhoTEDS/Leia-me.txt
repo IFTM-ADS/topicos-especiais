@@ -1,0 +1,39 @@
+Ao baixar o projeto(TrabalhoTEDS) e clicar em Executar ou em F6,
+o projeto, que retrata um restaurante, é aberto em sua página principal, nela temos as opções:
+
+-Cadastro de clientes
+
+-Adicionar produto
+    Ao clicar nesta opção, é possivel que se cadastre as bebidas e os pratos do restaurante, os dados para cadastro são:
+     --código
+     --nome
+     --descricao
+     --preco
+    Ao preencher os dados de bebida e clicar em "Inserir Bebida" uma nova bebida é adicionada à lista de produtos do restaurante;
+    Ao preencher os dados de prato e clicar em "Inserir Prato" um novo prato é adicionada à lista de produtos do restaurante;
+    *Obs.: Somente um prato e/ou bebida pode ser inserido por vez, não é permitido que adicione bebidas e pratos simultaneamente 
+    Confirmada a inserção,você será transportado à página principal.
+
+-Fazer Compra
+   Nesta opção é feito o pedido dos clientes, é necessário que se indique a quantidade de bebida e/ou prato que queira consumir e clicar em
+   "Adicionar no carrinho".
+   Após o clique, logo abaixo de "Itens do Carrinho" é mostrado cada item que foi adicionado.
+   E clicando em "Finalizar pedido a compra é finalmente efetuada.
+   Confirmada a inserção,você será transportado à página principal.
+
+-Listar Pedidos
+   Aqui é listado todos os pedidos feitos no projeto com seus respectivos valores.
+
+-Alterar produtos
+   Sessão destinada à alteração e remoção dos produtos. Nesta página todas bebidas e produtos cadastrados são listados com
+   caixas de texto indicando os dados que estão cadastrados até então, é possivel renomear o nome do produto, definir um novo
+   código, modificar a descrição e o preço.
+    Clicando em alterar a mudança é efetuada ;
+    Clicando em remover todos os dados do produto serão excluídos.
+
+Teste Selenium: Para rodar o Teste Selenium é necessário que primeiro se execute o projeto de maneira integral, caso a porta de localhost esteja 
+   diferente do teste, basta ir nas funçoes do teste selenium e mudar a porta de localhost dentro do  driver.get para a 
+   porta que esteja usando. Para testar, vá na guia projetos no canto esquerdo da IDE, clique com botão direito no projeto e escolhar
+   "Executar Teste Selenium".
+
+Teste Unitario: Para o radar os teste unitários, Selecione o projeto e clique em testar, se preferir use o atalho alt+F6.

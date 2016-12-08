@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import modelo.Bebida;
 import modelo.dao.BebidaDAO;
 import modelo.dao.DAOFactory;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -57,11 +58,11 @@ public class BebidaDAOTest {
         factory.abrirConexao();
         dao = factory.criarBebidaDAO();
     }
-//
-//    @After
-//    public void tearDown() throws SQLException {
-//        factory.fecharConexao();
-//    }
+
+    @After
+    public void tearDown() throws SQLException {
+        factory.fecharConexao();
+    }
 
     public BebidaDAOTest() {
     }

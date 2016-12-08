@@ -19,7 +19,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-/**public class NewSeleneseIT {
+public class NewSeleneseIT {
 
     private WebDriver driver;
 
@@ -84,7 +84,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
         Thread.sleep(10000);
     }
 
-   /* @Test
+    @Test
     public void deveConseguirInserirPrato() throws InterruptedException {
 
         driver.get("localhost:8084/TrabalhoTEDS/");
@@ -103,7 +103,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
         inserir_prato.submit();
 
         Thread.sleep(10000);
-    }*/
+    }
 
     /*@Test
     public void deveConseguirFinalizarCompra() throws InterruptedException {
@@ -114,6 +114,5 @@ import org.openqa.selenium.chrome.ChromeDriver;
         elemento.click();
 
         Thread.sleep(10000);
-    }
+    }*/
 }
-*/
