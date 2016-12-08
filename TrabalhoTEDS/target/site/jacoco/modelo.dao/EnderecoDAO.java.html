@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>EnderecoDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TrabalhoTEDS</a> &gt; <a href="index.source.html" class="el_package">modelo.dao</a> &gt; <span class="el_source">EnderecoDAO.java</span></div><h1>EnderecoDAO.java</h1><pre class="source lang-java linenums">package modelo.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import modelo.Endereco;
+
+
+public class EnderecoDAO {
+    
+    private final Connection conexao;
+
+<span class="nc" id="L17">    public EnderecoDAO (Connection conexao) {</span>
+<span class="nc" id="L18">        this.conexao = conexao;</span>
+<span class="nc" id="L19">    }</span>
+
+    
+    public void gravar(Endereco endereco) throws SQLException {
+
+<span class="nc" id="L24">        String insercao = &quot;INSERT INTO endereco (endereco, numero, bairro, cep, estado, cidade, complemento) VALUES (?, ?, ?, ?, ?, ?, ?);&quot;;</span>
+<span class="nc" id="L25">        try (PreparedStatement pstmt = conexao.prepareStatement(insercao, PreparedStatement.RETURN_GENERATED_KEYS)) {</span>
+<span class="nc" id="L26">            pstmt.setString(1, endereco.getEndereco());</span>
+<span class="nc" id="L27">            pstmt.setString(2, endereco.getNumero());</span>
+<span class="nc" id="L28">            pstmt.setString(3, endereco.getBairro());</span>
+<span class="nc" id="L29">            pstmt.setString(4, endereco.getCep());</span>
+<span class="nc" id="L30">            pstmt.setString(5, endereco.getEstado());</span>
+<span class="nc" id="L31">            pstmt.setString(6, endereco.getCidade());</span>
+<span class="nc" id="L32">            pstmt.setString(7, endereco.getComplemento());</span>
+<span class="nc" id="L33">            int resultado = pstmt.executeUpdate();</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">            if (resultado == 1) {</span>
+<span class="nc" id="L35">                System.out.println(&quot;\nInserção bem sucedida.&quot;);</span>
+<span class="nc" id="L36">                try (ResultSet rs = pstmt.getGeneratedKeys()) {</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">                    if (rs.next()) {</span>
+<span class="nc" id="L38">                        endereco.setIdEndereco(rs.getInt(1));</span>
+                    }
+<span class="nc bnc" id="L40" title="All 8 branches missed.">                }</span>
+            } else {
+<span class="nc" id="L42">                System.out.println(&quot;A inserção não foi feita corretamente.&quot;);</span>
+            }
+<span class="nc bnc" id="L44" title="All 8 branches missed.">        }</span>
+
+<span class="nc" id="L46">    }</span>
+    
+    public List&lt;Endereco&gt; buscarTodos() throws SQLException {
+        Endereco endereco;
+<span class="nc" id="L50">        List&lt;Endereco&gt; enderecos = new ArrayList&lt;Endereco&gt;();</span>
+<span class="nc" id="L51">        String selecao = &quot;SELECT * FROM cliente&quot;;</span>
+<span class="nc" id="L52">        try (Statement stmt = conexao.createStatement()) {</span>
+<span class="nc" id="L53">            try (ResultSet rs = stmt.executeQuery(selecao)) {</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">                while (rs.next()) {</span>
+<span class="nc" id="L55">                    endereco = new Endereco();</span>
+<span class="nc" id="L56">                    endereco.setEndereco(rs.getString(1));</span>
+<span class="nc" id="L57">                    endereco.setNumero(rs.getString(2));</span>
+<span class="nc" id="L58">                    endereco.setBairro(rs.getString(3));</span>
+<span class="nc" id="L59">                    endereco.setCep(rs.getString(4));</span>
+<span class="nc" id="L60">                    endereco.setEstado(rs.getString(5));</span>
+<span class="nc" id="L61">                    endereco.setCidade(rs.getString(6));</span>
+<span class="nc" id="L62">                    endereco.setComplemento(rs.getString(7));</span>
+<span class="nc" id="L63">                    enderecos.add(endereco);</span>
+                }
+<span class="nc bnc" id="L65" title="All 8 branches missed.">            }</span>
+<span class="nc bnc" id="L66" title="All 8 branches missed.">        }</span>
+<span class="nc" id="L67">        return enderecos;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

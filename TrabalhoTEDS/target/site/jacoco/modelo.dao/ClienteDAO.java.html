@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ClienteDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TrabalhoTEDS</a> &gt; <a href="index.source.html" class="el_package">modelo.dao</a> &gt; <span class="el_source">ClienteDAO.java</span></div><h1>ClienteDAO.java</h1><pre class="source lang-java linenums">package modelo.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import modelo.Cliente;
+
+
+public class ClienteDAO {
+    
+    private final Connection conexao;
+
+<span class="nc" id="L17">    public ClienteDAO (Connection conexao) {</span>
+<span class="nc" id="L18">        this.conexao = conexao;</span>
+<span class="nc" id="L19">    }</span>
+
+    
+    
+    public void gravar(Cliente cliente) throws SQLException {
+
+<span class="nc" id="L25">        String insercao = &quot;INSERT INTO cliente (cpf, nome, data_nasc, email, senha, endereco_idEndereco) VALUES (?, ?, ?, ?, ?, ?);&quot;;</span>
+<span class="nc" id="L26">        try (PreparedStatement pstmt = conexao.prepareStatement(insercao, PreparedStatement.RETURN_GENERATED_KEYS)) {</span>
+<span class="nc" id="L27">            pstmt.setString(1, cliente.getCpf());</span>
+<span class="nc" id="L28">            pstmt.setString(2, cliente.getNome());</span>
+<span class="nc" id="L29">            pstmt.setString(3, cliente.getData());</span>
+<span class="nc" id="L30">            pstmt.setString(4, cliente.getEmail());</span>
+<span class="nc" id="L31">            pstmt.setString(5, cliente.getSenha());</span>
+<span class="nc" id="L32">            pstmt.setInt(6, cliente.getIdEndereco());</span>
+<span class="nc" id="L33">            int resultado = pstmt.executeUpdate();</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">            if (resultado == 1) {</span>
+<span class="nc" id="L35">                System.out.println(&quot;\n Inserção bem sucedida.&quot;);</span>
+            } else {
+<span class="nc" id="L37">                System.out.println(&quot;A inserção não foi feita corretamente.&quot;);</span>
+            }
+<span class="nc bnc" id="L39" title="All 8 branches missed.">        }</span>
+
+<span class="nc" id="L41">    }</span>
+    
+
+    public List&lt;Cliente&gt; buscarTodos() throws SQLException {
+        Cliente cliente;
+<span class="nc" id="L46">        List&lt;Cliente&gt; clientes = new ArrayList&lt;Cliente&gt;();</span>
+<span class="nc" id="L47">        String selecao = &quot;SELECT * FROM cliente&quot;;</span>
+<span class="nc" id="L48">        try (Statement stmt = conexao.createStatement()) {</span>
+<span class="nc" id="L49">            try (ResultSet rs = stmt.executeQuery(selecao)) {</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">                while (rs.next()) {</span>
+<span class="nc" id="L51">                    cliente = new Cliente();</span>
+<span class="nc" id="L52">                    cliente.setCpf(rs.getString(1));</span>
+<span class="nc" id="L53">                    cliente.setNome(rs.getString(2));</span>
+<span class="nc" id="L54">                    cliente.setData(rs.getString(3));</span>
+<span class="nc" id="L55">                    cliente.setEmail(rs.getString(4));</span>
+<span class="nc" id="L56">                    cliente.setSenha(rs.getString(5));</span>
+<span class="nc" id="L57">                    cliente.setIdEndereco(rs.getInt(6));</span>
+<span class="nc" id="L58">                    clientes.add(cliente);</span>
+                }
+<span class="nc bnc" id="L60" title="All 8 branches missed.">            }</span>
+<span class="nc bnc" id="L61" title="All 8 branches missed.">        }</span>
+<span class="nc" id="L62">        return clientes;</span>
+    }
+    
+    public Cliente buscar(String cpf) throws SQLException {
+<span class="nc" id="L66">        Cliente cliente = null;</span>
+<span class="nc" id="L67">        String selecao = &quot;SELECT * FROM produto WHERE cpf = ?&quot;;</span>
+<span class="nc" id="L68">        try (PreparedStatement pstmt = conexao.prepareStatement(selecao)) {</span>
+<span class="nc" id="L69">            pstmt.setString(1, cpf);</span>
+<span class="nc" id="L70">            try (ResultSet rs = pstmt.executeQuery()) {</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">                if (rs.next()) {</span>
+<span class="nc" id="L72">                    cliente = new Cliente();</span>
+<span class="nc" id="L73">                    cliente.setCpf(rs.getString(1));</span>
+<span class="nc" id="L74">                    cliente.setNome(rs.getString(2));</span>
+<span class="nc" id="L75">                    cliente.setData(rs.getString(3));</span>
+<span class="nc" id="L76">                    cliente.setEmail(rs.getString(4));</span>
+<span class="nc" id="L77">                    cliente.setSenha(rs.getString(5));</span>
+<span class="nc" id="L78">                    cliente.setIdEndereco(rs.getInt(6));</span>
+               
+                }
+<span class="nc bnc" id="L81" title="All 8 branches missed.">            }</span>
+<span class="nc bnc" id="L82" title="All 8 branches missed.">        }</span>
+<span class="nc" id="L83">        return cliente;</span>
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

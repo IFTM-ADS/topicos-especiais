@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PratoDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TrabalhoTEDS</a> &gt; <a href="index.source.html" class="el_package">modelo.dao</a> &gt; <span class="el_source">PratoDAO.java</span></div><h1>PratoDAO.java</h1><pre class="source lang-java linenums">package modelo.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import modelo.Prato;
+
+public class PratoDAO {
+
+    private final Connection conexao;
+
+<span class="nc" id="L16">    public PratoDAO(Connection conexao) {</span>
+<span class="nc" id="L17">        this.conexao = conexao;</span>
+<span class="nc" id="L18">    }</span>
+
+    public Prato buscar(long codigo) throws SQLException {
+<span class="nc" id="L21">        Prato prato = null;</span>
+<span class="nc" id="L22">        String selecao = &quot;SELECT * FROM prato WHERE codigo = ?&quot;;</span>
+<span class="nc" id="L23">        try (PreparedStatement pstmt = conexao.prepareStatement(selecao)) {</span>
+<span class="nc" id="L24">            pstmt.setLong(1, codigo);</span>
+<span class="nc" id="L25">            try (ResultSet rs = pstmt.executeQuery()) {</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">                if (rs.next()) {</span>
+<span class="nc" id="L27">                    prato = new Prato();</span>
+<span class="nc" id="L28">                    prato.setCodigo_prato(rs.getInt(1));</span>
+<span class="nc" id="L29">                    prato.setNome(rs.getString(2));                   </span>
+<span class="nc" id="L30">                    prato.setPreco(rs.getDouble(3));</span>
+<span class="nc" id="L31">                    prato.setDescricao(rs.getString(4));</span>
+                }
+<span class="nc bnc" id="L33" title="All 8 branches missed.">            }</span>
+<span class="nc bnc" id="L34" title="All 8 branches missed.">        }</span>
+<span class="nc" id="L35">        return prato;</span>
+    }
+
+    public List&lt;Prato&gt; buscarTodos() throws SQLException {
+        Prato prato;
+<span class="nc" id="L40">        List&lt;Prato&gt; pratos = new ArrayList&lt;Prato&gt;();</span>
+<span class="nc" id="L41">        String selecao = &quot;SELECT * FROM prato&quot;;</span>
+<span class="nc" id="L42">        try (Statement stmt = conexao.createStatement()) {</span>
+<span class="nc" id="L43">            try (ResultSet rs = stmt.executeQuery(selecao)) {</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">                while (rs.next()) {</span>
+<span class="nc" id="L45">                    prato = new Prato();</span>
+<span class="nc" id="L46">                    prato.setCodigo_prato(rs.getInt(1));</span>
+<span class="nc" id="L47">                    prato.setNome(rs.getString(2));</span>
+<span class="nc" id="L48">                    prato.setPreco(rs.getDouble(3));</span>
+<span class="nc" id="L49">                    prato.setDescricao(rs.getString(4));</span>
+<span class="nc" id="L50">                    pratos.add(prato);</span>
+                }
+<span class="nc bnc" id="L52" title="All 8 branches missed.">            }</span>
+<span class="nc bnc" id="L53" title="All 8 branches missed.">        }</span>
+<span class="nc" id="L54">        return pratos;</span>
+    }
+
+    public void gravar(Prato prato) throws SQLException {
+
+<span class="nc" id="L59">        String insercao = &quot;INSERT INTO prato (codigo, nome, descricao, preco) VALUES (?, ?, ?, ?);&quot;;</span>
+<span class="nc" id="L60">        try (PreparedStatement pstmt = conexao.prepareStatement(insercao)) {</span>
+<span class="nc" id="L61">            pstmt.setInt(1, prato.getCodigo_prato());</span>
+<span class="nc" id="L62">            pstmt.setString(2, prato.getNome());</span>
+<span class="nc" id="L63">            pstmt.setString(3, prato.getDescricao());</span>
+<span class="nc" id="L64">            pstmt.setDouble(4, prato.getPreco());</span>
+<span class="nc" id="L65">            int resultado = pstmt.executeUpdate();</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">            if (resultado == 1) {</span>
+<span class="nc" id="L67">                System.out.println(&quot;\nInserção bem sucedida.&quot;);</span>
+            } else {
+<span class="nc" id="L69">                System.out.println(&quot;A inserção não foi feita corretamente.&quot;);</span>
+            }
+<span class="nc bnc" id="L71" title="All 8 branches missed.">        }</span>
+<span class="nc" id="L72">    }</span>
+
+    public void remover(Prato prato) throws SQLException {
+<span class="nc" id="L75">        String remocao = &quot;DELETE FROM prato WHERE codigo = ?&quot;;</span>
+<span class="nc" id="L76">        try (PreparedStatement pstmt = conexao.prepareStatement(remocao)) {</span>
+<span class="nc" id="L77">            pstmt.setInt(1, prato.getCodigo_prato());</span>
+<span class="nc" id="L78">            int remocoes = pstmt.executeUpdate();</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">            if (remocoes == 1) {</span>
+<span class="nc" id="L80">                System.out.println(&quot;Remoção efetuada com sucesso.&quot;);</span>
+            } else {
+<span class="nc" id="L82">                System.out.println(&quot;Não foi possível efetuar a remoção.&quot;);</span>
+            }
+<span class="nc bnc" id="L84" title="All 8 branches missed.">        }</span>
+<span class="nc" id="L85">    }</span>
+
+    public void atualizar(Prato prato) throws SQLException {
+<span class="nc" id="L88">        String alteracao = &quot;UPDATE prato SET nome = ?, descricao = ?, preco = ? WHERE codigo = ?;&quot;;</span>
+<span class="nc" id="L89">        try (PreparedStatement pstmt = conexao.prepareStatement(alteracao)) {         </span>
+<span class="nc" id="L90">            pstmt.setString(1, prato.getNome());        </span>
+<span class="nc" id="L91">            pstmt.setString(2, prato.getDescricao());</span>
+<span class="nc" id="L92">            pstmt.setDouble(3, prato.getPreco());</span>
+<span class="nc" id="L93">            pstmt.setInt(4, prato.getCodigo_prato());</span>
+<span class="nc" id="L94">            int alteracoes = pstmt.executeUpdate();</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">            if (alteracoes == 1) {</span>
+<span class="nc" id="L96">                System.out.println(&quot;\nAlteracao bem sucedida.&quot;);</span>
+            } else {
+<span class="nc" id="L98">                System.out.println(&quot;A alteracao não foi feita corretamente.&quot;);</span>
+            }
+<span class="nc bnc" id="L100" title="All 8 branches missed.">        }</span>
+<span class="nc" id="L101">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

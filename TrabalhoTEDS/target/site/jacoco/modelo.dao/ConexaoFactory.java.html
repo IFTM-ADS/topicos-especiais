@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ConexaoFactory.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TrabalhoTEDS</a> &gt; <a href="index.source.html" class="el_package">modelo.dao</a> &gt; <span class="el_source">ConexaoFactory.java</span></div><h1>ConexaoFactory.java</h1><pre class="source lang-java linenums">package modelo.dao;
+
+import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+/*public class ConexaoFactory {
+
+    public static Connection getConexao() throws SQLException {
+        String caminho = &quot;jdbc:mysql&quot;;
+//        String caminho = &quot;jdbc:postgresql&quot;;
+        String host = &quot;localhost&quot;;
+        String porta = &quot;3306&quot;;
+//        String porta = &quot;5432&quot;;
+        String bd = &quot;db_restaurante&quot;;
+        String login = &quot;root&quot;;
+//        String login = &quot;postgres&quot;;
+        String senha = &quot;12345&quot;;  // admwindows, admlinux ou vazia “”
+        String url = caminho + &quot;://&quot; + host + &quot;:&quot; + porta + &quot;/&quot; + bd;
+
+        Connection conexao = null;
+
+        try {
+            System.out.println(&quot;Conectando com o banco de dados.&quot;);
+            Class.forName(&quot;com.mysql.jdbc.Driver&quot;);
+//            Class.forName(&quot;org.postgresql.Driver&quot;);
+            conexao = DriverManager.getConnection(url, login, senha);
+            System.out.println(&quot;Conexão com o banco de dados estabelecida.&quot;);
+        } catch (ClassNotFoundException ex) {
+            System.out.println(&quot;Erro ao carregar o driver JDBC.&quot;);
+        }
+        return conexao;
+    }
+
+    private ConexaoFactory() {
+    }
+}*/
+
+
+public class ConexaoFactory {
+
+    public static Connection getConexaoH2Memoria() throws SQLException {
+<span class="nc" id="L45">        String bd = &quot;db_restaurante&quot;;</span>
+<span class="nc" id="L46">        String url = &quot;jdbc:h2:mem:&quot; + bd + &quot;;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1;&quot;</span>
+                + &quot;INIT=CREATE TABLE IF NOT EXISTS bebida (codigo int(11), &quot;
+                + &quot;nome varchar(45), &quot;
+                + &quot;preco double, &quot;
+                + &quot;descricao varchar(45))\\;&quot;;
+<span class="nc" id="L51">        String login = &quot;root&quot;;</span>
+<span class="nc" id="L52">        String senha = &quot;12345&quot;;</span>
+<span class="nc" id="L53">        boolean criarBD = false;</span>
+<span class="nc" id="L54">        Connection conexao = null;</span>
+        try {
+<span class="nc" id="L56">            Class.forName(&quot;org.h2.Driver&quot;);</span>
+<span class="nc" id="L57">            conexao = DriverManager.getConnection(url, login, senha);</span>
+<span class="nc" id="L58">        } catch (SQLException e) {</span>
+<span class="nc" id="L59">            System.out.println(&quot;Não foi possível estabelecer a conexão com o banco selecionado.&quot;);</span>
+<span class="nc" id="L60">            DAOFactory.mostrarSQLException(e);</span>
+<span class="nc" id="L61">        } catch (ClassNotFoundException ex) {</span>
+<span class="nc" id="L62">            System.out.println(&quot;Não foi possível carregar o driver JDBC do BD.&quot;);</span>
+<span class="nc" id="L63">        }</span>
+<span class="nc" id="L64">        return conexao;</span>
+    }
+    
+    public static Connection getConexaoH2Arquivo() throws SQLException {
+<span class="nc" id="L68">        String bd = &quot;db_restaurante&quot;;</span>
+<span class="nc" id="L69">        String url = &quot;jdbc:h2:./&quot; + bd + &quot;;DATABASE_TO_UPPER=false;&quot;;</span>
+<span class="nc" id="L70">        String login = &quot;root&quot;;</span>
+<span class="nc" id="L71">        String senha = &quot;12345&quot;;</span>
+<span class="nc" id="L72">        boolean criarBD = false;</span>
+<span class="nc" id="L73">        Connection conexao = null;</span>
+        try {
+<span class="nc" id="L75">            Class.forName(&quot;org.h2.Driver&quot;);</span>
+<span class="nc" id="L76">            File arquivoBD = new File(System.getProperty(&quot;user.dir&quot;)</span>
+                    + System.getProperty(&quot;file.separator&quot;) + bd + &quot;.mv.db&quot;);
+<span class="nc bnc" id="L78" title="All 2 branches missed.">            if (!arquivoBD.exists()) { // O arquivo do BD ainda não existe.</span>
+<span class="nc" id="L79">                criarBD = true;</span>
+            }
+<span class="nc" id="L81">            conexao = DriverManager.getConnection(url, login, senha);</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">            if (criarBD) { //Cria as tabelas e insere os dados iniciais no BD.</span>
+<span class="nc" id="L83">                System.out.println(&quot;O banco de dados da aplicação não existe.&quot;);</span>
+<span class="nc" id="L84">                criarTabelas(conexao);</span>
+<span class="nc" id="L85">                System.out.println(&quot;Banco de dados criado: &quot; + bd + &quot;.mv.db&quot;);</span>
+            }
+<span class="nc" id="L87">            System.out.println(&quot;Banco de dados utilizado: &quot; + bd + &quot;.mv.db&quot;);</span>
+<span class="nc" id="L88">        } catch (SQLException e) {</span>
+<span class="nc" id="L89">            System.out.println(&quot;Não foi possível estabelecer a conexão com o banco selecionado.&quot;);</span>
+<span class="nc" id="L90">            DAOFactory.mostrarSQLException(e);</span>
+<span class="nc" id="L91">        } catch (ClassNotFoundException ex) {</span>
+<span class="nc" id="L92">            System.out.println(&quot;Não foi possível carregar o driver JDBC do BD.&quot;);</span>
+<span class="nc" id="L93">        }</span>
+<span class="nc" id="L94">        return conexao;</span>
+    }
+
+    public static Connection getConexaoMySQL() throws SQLException {
+<span class="nc" id="L98">        String caminho = &quot;jdbc:mysql&quot;; // &quot;jdbc:postgresql&quot;</span>
+<span class="nc" id="L99">        String host = &quot;localhost&quot;;</span>
+<span class="nc" id="L100">        String porta = &quot;3306&quot;; // &quot;5432&quot;</span>
+<span class="nc" id="L101">        String bd = &quot;db_restaurante&quot;;</span>
+<span class="nc" id="L102">        String login = &quot;root&quot;; // &quot;postgres&quot;</span>
+<span class="nc" id="L103">        String senha = &quot;12345&quot;;</span>
+<span class="nc" id="L104">        String encoding = &quot;?useUnicode=true&amp;amp;characterEncoding=UTF-8&quot;;</span>
+<span class="nc" id="L105">        String url = caminho + &quot;://&quot; + host + &quot;:&quot; + porta + &quot;/&quot; + bd + encoding;</span>
+        
+<span class="nc" id="L107">        Connection conexao = null;</span>
+        
+        try {
+<span class="nc" id="L110">            System.out.println(&quot;Conectando com o banco de dados.&quot;);</span>
+<span class="nc" id="L111">            Class.forName(&quot;com.mysql.jdbc.Driver&quot;); // &quot;org.postgresql.Driver&quot;</span>
+<span class="nc" id="L112">            conexao = DriverManager.getConnection(url, login, senha);</span>
+<span class="nc" id="L113">            System.out.println(&quot;Conexão com o banco de dados estabelecida.&quot;);</span>
+<span class="nc" id="L114">        } catch (ClassNotFoundException ex) {</span>
+<span class="nc" id="L115">            System.out.println(&quot;Erro ao carregar o driver JDBC.&quot;);</span>
+<span class="nc" id="L116">        }</span>
+        
+<span class="nc" id="L118">        return conexao ;</span>
+    }
+
+    private static void criarTabelas(Connection conexao) throws SQLException {
+<span class="nc" id="L122">        String create = &quot;CREATE TABLE bebida (codigo nt(11), &quot;</span>
+                + &quot;nome varchar(45), &quot;
+                + &quot;preco double, &quot;
+                + &quot;descricao varchar(45));&quot;;
+<span class="nc" id="L126">        try (Statement stmt = conexao.createStatement()) {</span>
+<span class="nc" id="L127">            int resultado = stmt.executeUpdate(create);</span>
+<span class="nc bnc" id="L128" title="All 8 branches missed.">        }</span>
+<span class="nc" id="L129">    }</span>
+
+    private static void inserirDadosIniciais(Connection conexao) throws SQLException {
+<span class="nc" id="L132">        String insert = &quot;INSERT INTO bebida (codigo, nome, preco, descricao) &quot;</span>
+                + &quot;VALUES(2005, 'cachaça', '10.00', 'pinga');&quot;;
+<span class="nc" id="L134">        try (Statement stmt = conexao.createStatement()) {</span>
+<span class="nc" id="L135">            int resultado = stmt.executeUpdate(insert);</span>
+<span class="nc bnc" id="L136" title="All 8 branches missed.">        }</span>
+<span class="nc" id="L137">    }</span>
+
+<span class="nc" id="L139">    private ConexaoFactory() {</span>
+<span class="nc" id="L140">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

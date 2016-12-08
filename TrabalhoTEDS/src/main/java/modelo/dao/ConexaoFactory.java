@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/*public class ConexaoFactory {
+public class ConexaoFactory {
 
     public static Connection getConexao() throws SQLException {
         String caminho = "jdbc:mysql";
@@ -34,20 +34,13 @@ import java.sql.Statement;
         return conexao;
     }
 
-    private ConexaoFactory() {
-    }
-}*/
-
-
-public class ConexaoFactory {
-
     public static Connection getConexaoH2Memoria() throws SQLException {
         String bd = "db_restaurante";
         String url = "jdbc:h2:mem:" + bd + ";DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1;"
-                + "INIT=CREATE TABLE IF NOT EXISTS bebida (codigo int(11), "
+                + "INIT=CREATE TABLE IF NOT EXISTS bebida (codigo int(11) PRIMARY KEY, "
                 + "nome varchar(45), "
                 + "preco double, "
-                + "descricao varchar(45))\\;";
+                + "descricao varchar(45));";
         String login = "root";
         String senha = "12345";
         boolean criarBD = false;
@@ -63,7 +56,7 @@ public class ConexaoFactory {
         }
         return conexao;
     }
-    
+
     public static Connection getConexaoH2Arquivo() throws SQLException {
         String bd = "db_restaurante";
         String url = "jdbc:h2:./" + bd + ";DATABASE_TO_UPPER=false;";
@@ -103,9 +96,9 @@ public class ConexaoFactory {
         String senha = "12345";
         String encoding = "?useUnicode=true&amp;characterEncoding=UTF-8";
         String url = caminho + "://" + host + ":" + porta + "/" + bd + encoding;
-        
+
         Connection conexao = null;
-        
+
         try {
             System.out.println("Conectando com o banco de dados.");
             Class.forName("com.mysql.jdbc.Driver"); // "org.postgresql.Driver"
@@ -114,8 +107,8 @@ public class ConexaoFactory {
         } catch (ClassNotFoundException ex) {
             System.out.println("Erro ao carregar o driver JDBC.");
         }
-        
-        return conexao ;
+
+        return conexao;
     }
 
     private static void criarTabelas(Connection conexao) throws SQLException {
