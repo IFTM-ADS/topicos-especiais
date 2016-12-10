@@ -66,51 +66,50 @@ import java.sql.SQLException;
     public void abrirConexao() throws SQLException {
 <span class="nc bnc" id="L67" title="All 2 branches missed.">        if (conexao == null) {</span>
 <span class="nc" id="L68">            conexao = ConexaoFactory.getConexaoMySQL();</span>
-            //conexao = ConexaoFactory.getConexaoH2Memoria();
         } else {
-<span class="nc" id="L71">            throw new IllegalStateException(&quot;A conexão já está aberta.&quot;);</span>
+<span class="nc" id="L70">            throw new IllegalStateException(&quot;A conexão já está aberta.&quot;);</span>
         }
-<span class="nc" id="L73">    }</span>
+<span class="nc" id="L72">    }</span>
 
     public void fecharConexao() throws SQLException {
-<span class="nc bnc" id="L76" title="All 2 branches missed.">        if (conexao != null) {</span>
-<span class="nc" id="L77">            System.out.println(&quot;Terminando a conexão com o banco de dados.&quot;);</span>
-<span class="nc" id="L78">            conexao.close();</span>
-<span class="nc" id="L79">            conexao = null;</span>
-<span class="nc" id="L80">            System.out.println(&quot;Conexão com o banco de dados terminada.&quot;);</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">        if (conexao != null) {</span>
+<span class="nc" id="L76">            System.out.println(&quot;Terminando a conexão com o banco de dados.&quot;);</span>
+<span class="nc" id="L77">            conexao.close();</span>
+<span class="nc" id="L78">            conexao = null;</span>
+<span class="nc" id="L79">            System.out.println(&quot;Conexão com o banco de dados terminada.&quot;);</span>
         } else {
-<span class="nc" id="L82">            throw new IllegalStateException(&quot;A conexão com o BD já está fechada.&quot;);</span>
+<span class="nc" id="L81">            throw new IllegalStateException(&quot;A conexão com o BD já está fechada.&quot;);</span>
         }
-<span class="nc" id="L84">    }</span>
+<span class="nc" id="L83">    }</span>
 
     public void iniciarTransacao() throws SQLException {
-<span class="nc" id="L87">        conexao.setAutoCommit(false);</span>
-<span class="nc" id="L88">    }</span>
+<span class="nc" id="L86">        conexao.setAutoCommit(false);</span>
+<span class="nc" id="L87">    }</span>
 
     public void terminarTransacao() throws SQLException {
-<span class="nc" id="L91">        conexao.commit();</span>
-<span class="nc" id="L92">        conexao.setAutoCommit(true);</span>
-<span class="nc" id="L93">    }</span>
+<span class="nc" id="L90">        conexao.commit();</span>
+<span class="nc" id="L91">        conexao.setAutoCommit(true);</span>
+<span class="nc" id="L92">    }</span>
 
     public void abortarTransacao() throws SQLException {
-<span class="nc" id="L96">        conexao.rollback();</span>
-<span class="nc" id="L97">        conexao.setAutoCommit(true);</span>
-<span class="nc" id="L98">    }</span>
+<span class="nc" id="L95">        conexao.rollback();</span>
+<span class="nc" id="L96">        conexao.setAutoCommit(true);</span>
+<span class="nc" id="L97">    }</span>
 
     public static void mostrarSQLException(SQLException ex) {
-<span class="nc" id="L101">        SQLException e = ex;</span>
-<span class="nc bnc" id="L102" title="All 2 branches missed.">        while (e != null) {</span>
-<span class="nc" id="L103">            System.out.println(&quot;SQL State: &quot; + e.getSQLState());</span>
-<span class="nc" id="L104">            System.out.println(&quot;Error Code: &quot; + e.getErrorCode());</span>
-<span class="nc" id="L105">            System.out.println(&quot;Mensagem: &quot; + e.getMessage());</span>
-<span class="nc" id="L106">            Throwable t = e.getCause();</span>
-<span class="nc bnc" id="L107" title="All 2 branches missed.">            while (t != null) {</span>
-<span class="nc" id="L108">                System.out.println(&quot;Causa: &quot; + t);</span>
-<span class="nc" id="L109">                t = t.getCause();</span>
+<span class="nc" id="L100">        SQLException e = ex;</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        while (e != null) {</span>
+<span class="nc" id="L102">            System.out.println(&quot;SQL State: &quot; + e.getSQLState());</span>
+<span class="nc" id="L103">            System.out.println(&quot;Error Code: &quot; + e.getErrorCode());</span>
+<span class="nc" id="L104">            System.out.println(&quot;Mensagem: &quot; + e.getMessage());</span>
+<span class="nc" id="L105">            Throwable t = e.getCause();</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">            while (t != null) {</span>
+<span class="nc" id="L107">                System.out.println(&quot;Causa: &quot; + t);</span>
+<span class="nc" id="L108">                t = t.getCause();</span>
             }
-<span class="nc" id="L111">            e = e.getNextException();</span>
-<span class="nc" id="L112">        }</span>
-<span class="nc" id="L113">    }</span>
+<span class="nc" id="L110">            e = e.getNextException();</span>
+<span class="nc" id="L111">        }</span>
+<span class="nc" id="L112">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

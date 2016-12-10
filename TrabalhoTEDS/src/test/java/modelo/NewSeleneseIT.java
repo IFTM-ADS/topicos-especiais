@@ -1,4 +1,4 @@
-/*package modelo;
+package modelo;
 
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import java.io.File;
@@ -18,7 +18,6 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-
 
 public class NewSeleneseIT {
 
@@ -43,7 +42,7 @@ public class NewSeleneseIT {
         ChromeDriverManager.getInstance().setup();
 
         //Firefox
-        //MarionetteDriverManager.getInstance().setup();
+//        MarionetteDriverManager.getInstance().setup();
     }
 
     @Before
@@ -52,9 +51,9 @@ public class NewSeleneseIT {
         driver = new ChromeDriver();
 
         //Firefox
-        //DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-        //capabilities.setCapability("marionette", true);
-        //driver = new FirefoxDriver(capabilities);
+//        DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+//        capabilities.setCapability("marionette", true);
+//        driver = new FirefoxDriver(capabilities);
     }
 
     @After
@@ -73,16 +72,16 @@ public class NewSeleneseIT {
         elemento.click();
 
         WebElement codigo_bebida = driver.findElement(By.id("codigo_bebida"));
-        codigo_bebida.sendKeys("200011");
+        codigo_bebida.sendKeys("210010");
 
         WebElement nome_bebida = driver.findElement(By.id("nome_bebida"));
-        nome_bebida.sendKeys("bebidaTesteSelenium");
+        nome_bebida.sendKeys("cerveja");
 
         WebElement descricao_bebida = driver.findElement(By.id("descricao_bebida"));
-        descricao_bebida.sendKeys("bebidaTesteSelenium");
+        descricao_bebida.sendKeys("cerveja puro malte");
 
         WebElement preco_bebida = driver.findElement(By.id("preco_bebida"));
-        preco_bebida.sendKeys("10.00");
+        preco_bebida.sendKeys("5.50");
 
         WebElement inserir_bebida = driver.findElement(By.id("inserir_bebida"));
         inserir_bebida.submit();
@@ -99,16 +98,16 @@ public class NewSeleneseIT {
         elemento.click();
 
         WebElement codigo_prato = driver.findElement(By.id("codigo_prato"));
-        codigo_prato.sendKeys("100011");
+        codigo_prato.sendKeys("210010");
 
         WebElement nome_prato = driver.findElement(By.id("nome_prato"));
-        nome_prato.sendKeys("pratoTesteSelenium");
+        nome_prato.sendKeys("rocambole");
 
         WebElement descricao_prato = driver.findElement(By.id("descricao_prato"));
-        descricao_prato.sendKeys("pratoTesteSelenium");
+        descricao_prato.sendKeys("gostoso");
 
         WebElement preco_prato = driver.findElement(By.id("preco_prato"));
-        preco_prato.sendKeys("10.00");
+        preco_prato.sendKeys("5.50");
 
         WebElement inserir_prato = driver.findElement(By.id("inserir_prato"));
         inserir_prato.submit();
@@ -141,4 +140,3 @@ public class NewSeleneseIT {
     }
 
 }
-*/
