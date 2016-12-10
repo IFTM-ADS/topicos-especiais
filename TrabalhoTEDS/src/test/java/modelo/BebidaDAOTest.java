@@ -1,4 +1,4 @@
-package modelo;
+/*package modelo;
 
 import com.ninja_squad.dbsetup.DbSetup;
 import com.ninja_squad.dbsetup.DbSetupTracker;
@@ -125,3 +125,4 @@ public class BebidaDAOTest {
         assertNotNull(dao.buscarTodos());
     }
 }
+*/

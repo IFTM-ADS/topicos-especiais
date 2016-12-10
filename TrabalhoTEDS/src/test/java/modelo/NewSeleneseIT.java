@@ -1,4 +1,4 @@
-package modelo;
+/*package modelo;
 
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import java.io.File;
@@ -18,6 +18,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
 
 public class NewSeleneseIT {
 
@@ -67,17 +68,22 @@ public class NewSeleneseIT {
     public void deveConseguirInserirBebida() throws InterruptedException {
 
         driver.get("localhost:8084/TrabalhoTEDS/");
-        //driver.get("https://en.wikipedia.org/wiki/Main_Page");
+
         WebElement elemento = driver.findElement(By.id("adicionar"));
         elemento.click();
+
         WebElement codigo_bebida = driver.findElement(By.id("codigo_bebida"));
-        codigo_bebida.sendKeys("23030");
+        codigo_bebida.sendKeys("200011");
+
         WebElement nome_bebida = driver.findElement(By.id("nome_bebida"));
-        nome_bebida.sendKeys("cerveja");
+        nome_bebida.sendKeys("bebidaTesteSelenium");
+
         WebElement descricao_bebida = driver.findElement(By.id("descricao_bebida"));
-        descricao_bebida.sendKeys("cerveja puro malte");
+        descricao_bebida.sendKeys("bebidaTesteSelenium");
+
         WebElement preco_bebida = driver.findElement(By.id("preco_bebida"));
-        preco_bebida.sendKeys("5.50");
+        preco_bebida.sendKeys("10.00");
+
         WebElement inserir_bebida = driver.findElement(By.id("inserir_bebida"));
         inserir_bebida.submit();
 
@@ -91,21 +97,26 @@ public class NewSeleneseIT {
 
         WebElement elemento = driver.findElement(By.id("adicionar"));
         elemento.click();
+
         WebElement codigo_prato = driver.findElement(By.id("codigo_prato"));
-        codigo_prato.sendKeys("23030");
+        codigo_prato.sendKeys("100011");
+
         WebElement nome_prato = driver.findElement(By.id("nome_prato"));
-        nome_prato.sendKeys("rocambole");
+        nome_prato.sendKeys("pratoTesteSelenium");
+
         WebElement descricao_prato = driver.findElement(By.id("descricao_prato"));
-        descricao_prato.sendKeys("gostoso");
+        descricao_prato.sendKeys("pratoTesteSelenium");
+
         WebElement preco_prato = driver.findElement(By.id("preco_prato"));
-        preco_prato.sendKeys("5.50");
+        preco_prato.sendKeys("10.00");
+
         WebElement inserir_prato = driver.findElement(By.id("inserir_prato"));
         inserir_prato.submit();
 
         Thread.sleep(10000);
     }
 
-    /*@Test
+    @Test
     public void deveConseguirFinalizarCompra() throws InterruptedException {
 
         driver.get("localhost:8084/TrabalhoTEDS/");
@@ -113,6 +124,21 @@ public class NewSeleneseIT {
         WebElement elemento = driver.findElement(By.id("comprar"));
         elemento.click();
 
+        WebElement quant = driver.findElement(By.id("quantidadebebida"));
+        quant.sendKeys("3");
+
+        org.openqa.selenium.support.ui.Select dropdown
+                = new org.openqa.selenium.support.ui.Select(driver.findElement(By.id("bebidaid")));
+        dropdown.selectByIndex(0);
+
+        WebElement add = driver.findElement(By.id("adicionarbebida"));
+        add.click();
+
+        WebElement finalizar = driver.findElement(By.id("finalizar"));
+        finalizar.submit();
+
         Thread.sleep(10000);
-    }*/
+    }
+
 }
+*/
