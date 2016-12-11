@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-<span class="fc" id="L7">public class Pedido {</span>
+<span class="nc" id="L7">public class Pedido {</span>
 
     private long codigo;
     private String dataCompra;
     private double valor;
-<span class="fc" id="L12">    private List&lt;Item&gt; itens = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L12">    private List&lt;Item&gt; itens = new ArrayList&lt;&gt;();</span>
     private String cpf;
 
     public String getCpf() {
@@ -37,7 +37,7 @@ import java.util.List;
 <span class="nc" id="L37">    }</span>
 
     public double getValor() {
-<span class="fc" id="L40">        return valor;</span>
+<span class="nc" id="L40">        return valor;</span>
     }
 
     public void setValor(double valor) {
@@ -57,9 +57,9 @@ import java.util.List;
 <span class="nc" id="L57">    }</span>
 
     public void adicionarItem(int quantidade, Produto produto) {
-<span class="fc" id="L60">        itens.add(new Item(quantidade, produto));</span>
-<span class="fc" id="L61">        valor += quantidade * produto.getPreco();</span>
-<span class="fc" id="L62">    }</span>
+<span class="nc" id="L60">        itens.add(new Item(quantidade, produto));</span>
+<span class="nc" id="L61">        valor += quantidade * produto.getPreco();</span>
+<span class="nc" id="L62">    }</span>
     
     public void gerarAPartirDoCarrinhoCompras(CarrinhoCompras carrinho) {
 <span class="nc bnc" id="L65" title="All 2 branches missed.">        for (Item item : carrinho.getItens()) {</span>

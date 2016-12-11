@@ -398,19 +398,18 @@ public class ServletControle extends HttpServlet {
 
                 PratoDAO dao_prato = factory.criarPratoDAO();
                 Prato prato = new Prato();
-                
+
                 ProdutoDAO dao_produto = factory.criarProdutoDAO();
                 Produto produto = new Produto();
-                
+
                 ItemDAO dao_item = factory.criarItemDAO();
 
                 prato = dao_prato.buscar(Integer.parseInt(request.getParameter("codigo_prato")));
                 produto = dao_produto.buscar_prato(prato.getCodigo_prato());
-                
+
                 dao_item.remover(produto);
                 dao_produto.remover_prato(prato);
                 dao_prato.remover(prato);
-                
 
                 RequestDispatcher rd = null;
                 rd = request.getRequestDispatcher("/index.html");
@@ -427,26 +426,26 @@ public class ServletControle extends HttpServlet {
                     DAOFactory.mostrarSQLException(ex);
                 }
             }
-        }else if (caminho.equals("/produto/bebida/remover")) {
+        } else if (caminho.equals("/produto/bebida/remover")) {
             DAOFactory factory = new DAOFactory();
             try {
                 factory.abrirConexao();
 
                 BebidaDAO dao_bebida = factory.criarBebidaDAO();
                 Bebida bebida = new Bebida();
-                
+
                 ProdutoDAO dao_produto = factory.criarProdutoDAO();
                 Produto produto = new Produto();
-                
+
                 ItemDAO dao_item = factory.criarItemDAO();
 
                 bebida = dao_bebida.buscar(Integer.parseInt(request.getParameter("codigo_bebida")));
                 produto = dao_produto.buscar_bebida(bebida.getCodigo_bebida());
-                
+
                 dao_item.remover(produto);
                 dao_produto.remover_bebida(bebida);
                 dao_bebida.remover(bebida);
-                
+
                 RequestDispatcher rd = null;
                 rd = request.getRequestDispatcher("/index.html");
                 rd.forward(request, response);

@@ -1,6 +1,5 @@
 package modelo;
 
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -60,13 +59,5 @@ public class ProdutoTest {
         produto.setProduto_Bebida_codigo(2007);
         assertEquals(2007, produto.getProduto_Bebida_codigo());
     }
-
-    /*@Test
-    public void testGetSetPreco() {
-        System.out.println("getPreco");
-        Produto produto = new Produto();
-        produto.setPreco(10);
-        assertEquals(10, produto.getPreco());
-    }*/
 
 }

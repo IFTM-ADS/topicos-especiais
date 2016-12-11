@@ -1,6 +1,5 @@
 /*package modelo.dao;
 
-
 import com.ninja_squad.dbsetup.DbSetup;
 import com.ninja_squad.dbsetup.DbSetupTracker;
 import static com.ninja_squad.dbsetup.Operations.sequenceOf;
@@ -8,8 +7,6 @@ import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
 import com.ninja_squad.dbsetup.operation.Operation;
 import java.sql.SQLException;
 import modelo.Bebida;
-import modelo.dao.BebidaDAO;
-import modelo.dao.DAOFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,23 +23,9 @@ public class BebidaDAOTest {
     @Before
     public void setUp() throws SQLException {
         Operation operation
-                = sequenceOf(OperacoesComunsBD.LIMPA_TUDO,
-                        //OperacoesComunsBD.RESET_AUTOINCREMENT_MYSQL,
-                        // OperacoesComunsBD.RESET_AUTOINCREMENT_H2,                             
-                        OperacoesComunsBD.INSERE_DADOS_BASICOS);
-
-        // MySQL
-//        ConexaoFactory.getConexaoMySQL(); 
-//        DbSetup dbSetup = new DbSetup(new DriverManagerDestination(
-//                "jdbc:mysql://localhost:3306/db_restaurante",
-//                "root", "12345"), operation);
-        //H2 em arquivo 
-        //ConexaoFactory.getConexaoH2Arquivo();  
-        ////para criar o BD caso ele nao exista 
-        //DbSetup dbSetup = new DbSetup(new DriverManagerDestination( 
-        //"jdbc:h2:./db_restaurante;
-        //DATABASE_TO_UPPER=false;", 
-        //"root", "12345"), operation);        
+                = sequenceOf(OperacoesComunsBD.LIMPA_TUDO,                            
+                             OperacoesComunsBD.INSERE_DADOS_BASICOS);      
+        
         //H2 em memoria 
         DbSetup dbSetup = new DbSetup(new DriverManagerDestination(
                 "jdbc:h2:mem:db_restaurante;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1;"

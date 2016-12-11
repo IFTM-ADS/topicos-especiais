@@ -398,72 +398,71 @@ import modelo.dao.ProdutoDAO;
 
 <span class="nc" id="L399">                PratoDAO dao_prato = factory.criarPratoDAO();</span>
 <span class="nc" id="L400">                Prato prato = new Prato();</span>
-                
+
 <span class="nc" id="L402">                ProdutoDAO dao_produto = factory.criarProdutoDAO();</span>
 <span class="nc" id="L403">                Produto produto = new Produto();</span>
-                
+
 <span class="nc" id="L405">                ItemDAO dao_item = factory.criarItemDAO();</span>
 
 <span class="nc" id="L407">                prato = dao_prato.buscar(Integer.parseInt(request.getParameter(&quot;codigo_prato&quot;)));</span>
 <span class="nc" id="L408">                produto = dao_produto.buscar_prato(prato.getCodigo_prato());</span>
-                
+
 <span class="nc" id="L410">                dao_item.remover(produto);</span>
 <span class="nc" id="L411">                dao_produto.remover_prato(prato);</span>
 <span class="nc" id="L412">                dao_prato.remover(prato);</span>
-                
 
-<span class="nc" id="L415">                RequestDispatcher rd = null;</span>
-<span class="nc" id="L416">                rd = request.getRequestDispatcher(&quot;/index.html&quot;);</span>
-<span class="nc" id="L417">                rd.forward(request, response);</span>
+<span class="nc" id="L414">                RequestDispatcher rd = null;</span>
+<span class="nc" id="L415">                rd = request.getRequestDispatcher(&quot;/index.html&quot;);</span>
+<span class="nc" id="L416">                rd.forward(request, response);</span>
 
-<span class="nc" id="L419">            } catch (SQLException ex) {</span>
-<span class="nc" id="L420">                System.out.println(&quot;Erro no acesso ao banco de dados.&quot;);</span>
-<span class="nc" id="L421">                DAOFactory.mostrarSQLException(ex);</span>
+<span class="nc" id="L418">            } catch (SQLException ex) {</span>
+<span class="nc" id="L419">                System.out.println(&quot;Erro no acesso ao banco de dados.&quot;);</span>
+<span class="nc" id="L420">                DAOFactory.mostrarSQLException(ex);</span>
             } finally {
-<span class="nc" id="L423">                try {</span>
-<span class="nc" id="L424">                    factory.fecharConexao();</span>
-<span class="nc" id="L425">                } catch (SQLException ex) {</span>
-<span class="nc" id="L426">                    System.out.println(&quot;Erro ao fechar a conexão com o BD.&quot;);</span>
-<span class="nc" id="L427">                    DAOFactory.mostrarSQLException(ex);</span>
-<span class="nc" id="L428">                }</span>
-<span class="nc" id="L429">            }</span>
-<span class="nc bnc" id="L430" title="All 2 branches missed.">        }else if (caminho.equals(&quot;/produto/bebida/remover&quot;)) {</span>
-<span class="nc" id="L431">            DAOFactory factory = new DAOFactory();</span>
+<span class="nc" id="L422">                try {</span>
+<span class="nc" id="L423">                    factory.fecharConexao();</span>
+<span class="nc" id="L424">                } catch (SQLException ex) {</span>
+<span class="nc" id="L425">                    System.out.println(&quot;Erro ao fechar a conexão com o BD.&quot;);</span>
+<span class="nc" id="L426">                    DAOFactory.mostrarSQLException(ex);</span>
+<span class="nc" id="L427">                }</span>
+<span class="nc" id="L428">            }</span>
+<span class="nc bnc" id="L429" title="All 2 branches missed.">        } else if (caminho.equals(&quot;/produto/bebida/remover&quot;)) {</span>
+<span class="nc" id="L430">            DAOFactory factory = new DAOFactory();</span>
             try {
-<span class="nc" id="L433">                factory.abrirConexao();</span>
+<span class="nc" id="L432">                factory.abrirConexao();</span>
 
-<span class="nc" id="L435">                BebidaDAO dao_bebida = factory.criarBebidaDAO();</span>
-<span class="nc" id="L436">                Bebida bebida = new Bebida();</span>
-                
-<span class="nc" id="L438">                ProdutoDAO dao_produto = factory.criarProdutoDAO();</span>
-<span class="nc" id="L439">                Produto produto = new Produto();</span>
-                
-<span class="nc" id="L441">                ItemDAO dao_item = factory.criarItemDAO();</span>
+<span class="nc" id="L434">                BebidaDAO dao_bebida = factory.criarBebidaDAO();</span>
+<span class="nc" id="L435">                Bebida bebida = new Bebida();</span>
 
-<span class="nc" id="L443">                bebida = dao_bebida.buscar(Integer.parseInt(request.getParameter(&quot;codigo_bebida&quot;)));</span>
-<span class="nc" id="L444">                produto = dao_produto.buscar_bebida(bebida.getCodigo_bebida());</span>
-                
-<span class="nc" id="L446">                dao_item.remover(produto);</span>
-<span class="nc" id="L447">                dao_produto.remover_bebida(bebida);</span>
-<span class="nc" id="L448">                dao_bebida.remover(bebida);</span>
-                
-<span class="nc" id="L450">                RequestDispatcher rd = null;</span>
-<span class="nc" id="L451">                rd = request.getRequestDispatcher(&quot;/index.html&quot;);</span>
-<span class="nc" id="L452">                rd.forward(request, response);</span>
+<span class="nc" id="L437">                ProdutoDAO dao_produto = factory.criarProdutoDAO();</span>
+<span class="nc" id="L438">                Produto produto = new Produto();</span>
 
-<span class="nc" id="L454">            } catch (SQLException ex) {</span>
-<span class="nc" id="L455">                System.out.println(&quot;Erro no acesso ao banco de dados.&quot;);</span>
-<span class="nc" id="L456">                DAOFactory.mostrarSQLException(ex);</span>
+<span class="nc" id="L440">                ItemDAO dao_item = factory.criarItemDAO();</span>
+
+<span class="nc" id="L442">                bebida = dao_bebida.buscar(Integer.parseInt(request.getParameter(&quot;codigo_bebida&quot;)));</span>
+<span class="nc" id="L443">                produto = dao_produto.buscar_bebida(bebida.getCodigo_bebida());</span>
+
+<span class="nc" id="L445">                dao_item.remover(produto);</span>
+<span class="nc" id="L446">                dao_produto.remover_bebida(bebida);</span>
+<span class="nc" id="L447">                dao_bebida.remover(bebida);</span>
+
+<span class="nc" id="L449">                RequestDispatcher rd = null;</span>
+<span class="nc" id="L450">                rd = request.getRequestDispatcher(&quot;/index.html&quot;);</span>
+<span class="nc" id="L451">                rd.forward(request, response);</span>
+
+<span class="nc" id="L453">            } catch (SQLException ex) {</span>
+<span class="nc" id="L454">                System.out.println(&quot;Erro no acesso ao banco de dados.&quot;);</span>
+<span class="nc" id="L455">                DAOFactory.mostrarSQLException(ex);</span>
             } finally {
-<span class="nc" id="L458">                try {</span>
-<span class="nc" id="L459">                    factory.fecharConexao();</span>
-<span class="nc" id="L460">                } catch (SQLException ex) {</span>
-<span class="nc" id="L461">                    System.out.println(&quot;Erro ao fechar a conexão com o BD.&quot;);</span>
-<span class="nc" id="L462">                    DAOFactory.mostrarSQLException(ex);</span>
-<span class="nc" id="L463">                }</span>
-<span class="nc" id="L464">            }</span>
+<span class="nc" id="L457">                try {</span>
+<span class="nc" id="L458">                    factory.fecharConexao();</span>
+<span class="nc" id="L459">                } catch (SQLException ex) {</span>
+<span class="nc" id="L460">                    System.out.println(&quot;Erro ao fechar a conexão com o BD.&quot;);</span>
+<span class="nc" id="L461">                    DAOFactory.mostrarSQLException(ex);</span>
+<span class="nc" id="L462">                }</span>
+<span class="nc" id="L463">            }</span>
         }
-<span class="nc" id="L466">    }</span>
+<span class="nc" id="L465">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -477,8 +476,8 @@ import modelo.dao.ProdutoDAO;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L480">        processRequest(request, response);</span>
-<span class="nc" id="L481">    }</span>
+<span class="nc" id="L479">        processRequest(request, response);</span>
+<span class="nc" id="L480">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -491,8 +490,8 @@ import modelo.dao.ProdutoDAO;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L494">        processRequest(request, response);</span>
-<span class="nc" id="L495">    }</span>
+<span class="nc" id="L493">        processRequest(request, response);</span>
+<span class="nc" id="L494">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -501,7 +500,7 @@ import modelo.dao.ProdutoDAO;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L504">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L503">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

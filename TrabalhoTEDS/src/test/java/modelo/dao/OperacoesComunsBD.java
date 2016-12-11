@@ -11,13 +11,7 @@ public class OperacoesComunsBD {
 
     public static final Operation LIMPA_TUDO 
             = deleteAllFrom("bebida");
-    
-//    public static final Operation RESET_AUTOINCREMENT_MYSQL 
-//            = sql("ALTER TABLE bebida AUTO_INCREMENT = 1");
-    
-//    public static final Operation RESET_AUTOINCREMENT_H2 
-//            = sql("ALTER TABLE bebida ALTER COLUMN codigo RESTART WITH 1");
-    
+      
     public static final Operation INSERE_DADOS_BASICOS 
             = sequenceOf(
                     insertInto("bebida")
@@ -56,5 +50,5 @@ public class OperacoesComunsBD {
     private OperacoesComunsBD() {
     }
 }
-
 */
+
